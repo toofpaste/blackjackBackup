@@ -97,7 +97,7 @@ $(function(){
                   if(totalDeal >= 17){
 
                    if (totalUser >= 22){
-                     alert("Dealer: " + totalDeal + "   /User: " + totalUser + "    BUST - - - - Dealer Wins")
+                     alert("   User: " + totalUser + "    BUST - - - - Dealer Wins")
                    };
                    if (totalUser === totalDeal){
                      alert("Dealer: " + totalDeal + "  /User: " + totalUser + "    TIE TIE TIE TIE TIE")
@@ -122,14 +122,4 @@ $(function(){
 
           });
 
-
-
-
-
-
-
-
-          $("#clear").click(function(){
-                          $("ul").remove();
-                     });
 });
