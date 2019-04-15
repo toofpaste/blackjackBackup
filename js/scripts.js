@@ -27,32 +27,93 @@ function addCard(rngVal){
 
 function checkWin(totalUser, totalDeal){
   if (totalUser >= 22){
-     alert("   User: " + totalUser + "    BUST - - - - Dealer Wins")
+     console.log("   User: " + totalUser + "    BUST - - - - Dealer Wins");
    };
    if (totalUser === totalDeal){
-     alert("Dealer: " + totalDeal + "  /User: " + totalUser + "    TIE TIE TIE TIE TIE")
+     console.log("Dealer: " + totalDeal + "  /User: " + totalUser + "    TIE TIE TIE TIE TIE");
    };
    if (totalUser > totalDeal && totalUser <= 21){
-     alert("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS")
+     console.log("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS");
    };
    if (totalDeal > totalUser && totalDeal <= 21){
-     alert("Dealer: " + totalDeal + "   /User: " + totalUser + "    DEALER WINS HAHAHA");
+     console.log("Dealer: " + totalDeal + "   /User: " + totalUser + "    DEALER WINS HAHAHA");
    };
    if(totalDeal > 21 && totalUser <= 21){
-     alert("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS:  DEALER BUST");
+     console.log("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS:  DEALER BUST");
    };
 };
+
+function bet(num, betTotal){
+
+
+  $("#printBet").text("NO BET");
+  $("#plus1").click(function(){
+    $("button#dealC").show();
+    num=1;
+    betTotal+=1
+    $("#printBet").text("BET: $" + betTotal);
+    // takeMoney(num, betTotal);
+  })
+
+  $("#plus5").click(function(){
+    $("button#dealC").show();
+    num=5;
+    betTotal+=5
+    $("#printBet").text("BET: $" + betTotal);
+    // takeMoney(num, betTotal);
+  })
+
+  $("#plus10").click(function(){
+    $("button#dealC").show();
+    num=10;
+    betTotal+=10
+    $("#printBet").text("BET: $" + betTotal);
+    // takeMoney(num, betTotal);
+    return betTotal;
+  })
+
+  $("#plus50").click(function(){
+    $("button#dealC").show();
+    num=50;
+    betTotal+=50
+    $("#printBet").text("BET: $" + betTotal);
+    // takeMoney(num, betTotal);
+  })
+
+  $("#plus100").click(function(){
+    $("button#dealC").show();
+    num=100;
+    betTotal+=100
+    $("#printBet").text("BET: $" + betTotal);
+    // takeMoney(num, betTotal);
+  })
+}
+
 
 $(function(){
     var suitName = ["Spades" , "Hearts", "Diamonds", "Clubs"];
     var valueName = [2, 3, 4, 5, 6, 7 ,8 ,9, 10, "Jack", "Queen", "King", "Ace"];
     //               0  1  2  3  4  5  6  7  8     9        10      11      12
+
+    var playerBank =1000;
     var totalUser = 0;
     var totalDeal = 0;
     var win = 0;
     var rngVal = 0;
     var rngSuit = 0;
+    var num = 0;
+    var betTotal = 0;
+    
+    bet(num, betTotal);
+
+
     $("button#dealC").click(function(){
+      console.log(betTotal)
+      $("#plus1").hide();
+      $("#plus5").hide();
+      $("#plus10").hide();
+      $("#plus50").hide();
+      $("#plus100").hide();
       $("button#dealC").hide();
       $("button#hit").show();
       $("button#stay").show();
@@ -78,7 +139,7 @@ $(function(){
         };
       });
       $("button#stay").click(function(){
-        while(totalDeal <= 16){
+      while(totalDeal <= 16){
         rngVal = randVal();
         totalDeal += addCard(rngVal);
         rngSuit = randSuit();

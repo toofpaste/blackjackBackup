@@ -12,3 +12,19 @@
 #stay{
   display: none;
 }
+#dealC{
+  display: none;
+}
+#imgButtons{
+  display: flex;
+}
+#imgButtons img{
+  background-color: transparent;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+img {
+  height: 200px;
+}
