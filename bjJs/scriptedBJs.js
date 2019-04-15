@@ -156,7 +156,6 @@ function start(){
       dealDeal(rngVal, rngSuit, suitName, valueName);
     };
     checkWin(totalUser, totalDeal, betTotal);
-    console.log(playerBank);
     });
 };
 
@@ -172,12 +171,8 @@ return playerBank;
   var playerBank = 1000;
 $(function(){
   var countClick = 0;
-
-      console.log("3:" + playerBank);
-      alert("reset");
       $("#reset1").unbind("click").click(function(){
         $("#imgButtons").show();
-        console.log("bank: " + playerBank);
         $("#plus1").show();
         $("#plus5").show();
         $("#plus10").show();
