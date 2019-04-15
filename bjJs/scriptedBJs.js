@@ -28,29 +28,35 @@ function addCard(rngVal){
 function checkWin(totalUser, totalDeal, betTotal){
   $("#reset1").show();
   if (totalUser >= 22){
+    $("#bankBal").text("Balance: $" + playerBank)
      $('#name').text("   User: " + totalUser + "    BUST - - - - Dealer Wins");
      $('#bet').text("Bet Amount: $" + betTotal + " Loss Amount: $" + (betTotal));
      $("#bank").text("Bank Balance: $" + playerBank);
    };
    if (totalUser === totalDeal){
      playerBank += betTotal[0];
+     $("#bankBal").text("Balance: $" + playerBank)
      $('#name').text("Dealer: " + totalDeal + "  /User: " + totalUser + "    TIE TIE TIE TIE TIE");
      $('#bet').text("Bet Amount: $" + betTotal + " Win Amount: $" + (betTotal));
      $("#bank").text("Bank Balance: $" + playerBank);
    };
    if (totalUser > totalDeal && totalUser <= 21){
+
      playerBank += (betTotal[0]*2);
+     $("#bankBal").text("Balance: $" + playerBank)
     $('#name').text("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS")
     $('#bet').text("Bet Amount: $" + betTotal + " Win Amount: $" + (betTotal * 2));
     $("#bank").text("Bank Balance: $" + playerBank); ;
    };
    if (totalDeal > totalUser && totalDeal <= 21){
+     $("#bankBal").text("Balance: $" + playerBank)
     $('#name').text("Dealer: " + totalDeal + "   /User: " + totalUser + "    DEALER WINS HAHAHA");
     $('#bet').text("Bet Amount: $" + betTotal + " Loss Amount: $" + (betTotal));
     $("#bank").text("Bank Balance: $" + playerBank);
    };
    if(totalDeal > 21 && totalUser <= 21){
      playerBank += (betTotal[0]*2);
+     $("#bankBal").text("Balance: $" + playerBank)
      $('#name').text("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS:  DEALER BUST");
      $('#bet').text("Bet Amount: $" + betTotal + " Win Amount: $" + (betTotal * 2));
      $("#bank").text("Bank Balance: $" + playerBank);
@@ -165,13 +171,16 @@ betTotal.push(clickedNum);
 if(betTotal.length != 1){
 betTotal[0] += betTotal.pop();
 };
+$("#bankBal").text("Balance: $" + playerBank)
 $("#printBet").text("BET: $" + betTotal[0]);
 return playerBank;
 };
   var playerBank = 1000;
 $(function(){
   var countClick = 0;
+
       $("#reset1").unbind("click").click(function(){
+        if(playerBank != 0){
         $("#imgButtons").show();
         $("#plus1").show();
         $("#plus5").show();
@@ -187,5 +196,9 @@ $(function(){
         $("#stay").hide();
         $("#printBet").empty();
         start();
+      }else {$("#loselose").hide();
+              $("#loser").show();}
       });
+
+
 });

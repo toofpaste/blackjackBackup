@@ -35,3 +35,7 @@ img {
 #bustbust{
   font-size: 25px;
 }
+#loser {
+  display: flex;
+  display: none;
+}
