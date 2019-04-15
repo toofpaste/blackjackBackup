@@ -1,26 +1,14 @@
 function randVal(){
-  return Math.floor(Math.random() * 4);
+  return Math.floor(Math.random() * 13);
 };
 function randSuit(){
   return Math.floor(Math.random() * 4);
 };
 
 
-function dealUser(value, suit, suitName, valueName, arr){
+function dealUser(value, suit, suitName, valueName){
   var imagePath = ["spade", "diam", "heart", "club"];
-  var stop = 0;
-while(stop != 1){
-    var checkMatch = 0;
-    for(var i = 0; i < arr.length; i++){
-      if(arr[i] === ("" + value + "" + suit)){
-        checkMatch++;
-      };
-    };
-    if(checkMatch === 0){
     $("ul.user").append("<li><img src = 'img/" + imagePath[suit] + value + ".jpg'" + " of " + suitName[suit] + "</li>");
-    stop = 1;
-    };
-  };
 };
 function dealDeal(value, suit, suitName, valueName){
   var totalDeal = 0;
@@ -62,7 +50,6 @@ $(function(){
     var totalUser = 0;
     var totalDeal = 0;
     var win = 0;
-    var arr = [];
     var rngVal = 0;
     var rngSuit = 0;
     $("button#dealC").click(function(){
@@ -72,26 +59,22 @@ $(function(){
         rngVal = randVal();
         totalUser += addCard(rngVal);
         rngSuit = randSuit();
-        arr.push("" + rngVal + "" + rngSuit);
-        dealUser(rngVal, rngSuit, suitName, valueName, arr);
+        dealUser(rngVal, rngSuit, suitName, valueName);
         rngVal = randVal();
         totalUser += addCard(rngVal);
         rngSuit = randSuit();
-        arr.push("" + rngVal + "" + rngSuit);
-        dealUser(rngVal, rngSuit, suitName, valueName, arr);
+        dealUser(rngVal, rngSuit, suitName, valueName);
         rngVal = randVal();
         totalDeal += addCard(rngVal);
         rngSuit = randSuit();
-        arr.push("" + rngVal + "" + rngSuit);
-        dealDeal(rngVal, rngSuit, suitName, valueName, arr);
+        dealDeal(rngVal, rngSuit, suitName, valueName);
       });
       $("button#hit").click(function(){
         if(totalUser <= 21){
         rngVal = randVal();
         totalUser += addCard(rngVal);
         rngSuit = randSuit();
-        arr.push("" + rngVal + "" + rngSuit);
-        dealUser(rngVal, rngSuit, suitName, valueName, arr);
+        dealUser(rngVal, rngSuit, suitName, valueName);
         };
       });
       $("button#stay").click(function(){
@@ -99,8 +82,7 @@ $(function(){
         rngVal = randVal();
         totalDeal += addCard(rngVal);
         rngSuit = randSuit();
-        arr.push("" + rngVal + "" + rngSuit);
-        dealDeal(rngVal, rngSuit, suitName, valueName, arr);
+        dealDeal(rngVal, rngSuit, suitName, valueName);
       };
       checkWin(totalUser, totalDeal);
       });
