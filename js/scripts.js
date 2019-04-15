@@ -1,83 +1,44 @@
-function deal(suit, values, userCard, dealCard){
-  var x = 0;
-  while(x < 2){
-    var rngVal = Math.floor(Math.random() * 13);
-    var rngSuit = Math.floor(Math.random() * 4);
-    if (rngVal > 8 && rngVal < 12){
-      userCard.push(10);
-    }else if (rngVal === 12){
-      userCard.push(11);
-    }else if (rngVal <= 8){
-      userCard.push(rngVal + 2);
+function randVal(){
+  return Math.floor(Math.random() * 4);
+};
+function randSuit(){
+  return Math.floor(Math.random() * 4);
+};
+
+
+function dealUser(value, suit, suitName, valueName, arr){
+  var imagePath = ["spade", "diam", "heart", "club"];
+  var stop = 0;
+while(stop != 1){
+    var checkMatch = 0;
+    for(var i = 0; i < arr.length; i++){
+      if(arr[i] === ("" + value + "" + suit)){
+        checkMatch++;
+      };
     };
-    $("ul." + suit[0]).prepend("<li>"+ values[rngVal] + " of " + suit[rngSuit] + "</li>")
-    x += 1;
-  };
-    var rngVal = Math.floor(Math.random() * 13);
-    var rngSuit = Math.floor(Math.random() * 4);
-    if (rngVal > 8 && rngVal < 12){
-      dealCard.push(10);
-    }else if (rngVal === 12){
-      dealCard.push(11);
-    }else if (rngVal <= 8){
-      dealCard.push(rngVal + 2);
+    if(checkMatch === 0){
+    $("ul.user").append("<li><img src = 'img/" + imagePath[suit] + value + ".jpg'" + " of " + suitName[suit] + "</li>");
+    stop = 1;
     };
-    $("ul." + suit[1]).prepend("<li>"+ values[rngVal] + " of " + suit[rngSuit] + "</li>");
+  };
 };
-
-function hitUser(suit, values, userCard, totalUser, dealCard, totalDeal){
-  console.log("hitUser" + totalUser);
-  console.log("hitUser" + totalDeal);
-  var rngVal = Math.floor(Math.random() * 13);
-  var rngSuit = Math.floor(Math.random() * 4);
-  if (rngVal > 8 && rngVal < 12){
-    userCard.push(10);
-  }else if (rngVal === 12){
-    userCard.push(11);
-  }else if (rngVal <= 8){
-    userCard.push(rngVal + 2);
-  };
-  totalUser += userCard[(userCard.length - 1)];
-  $("ul." + suit[0]).prepend("<li>"+ values[rngVal] + " of " + suit[rngSuit] + "</li>");
-  for(var u = 0; u < userCard.length; u += 1){
-  totalUser += userCard[u];
-  };
-  for(var d = 0; d < dealCard.length; d += 1){
-  totalDeal += dealCard[d];
+function dealDeal(value, suit, suitName, valueName){
+  var totalDeal = 0;
+  var imagePath = ["spade", "diam", "heart", "club"];
+  $("ul.deal").append("<li><img src = 'img/" + imagePath[suit] + value + ".jpg'" + " of " + suitName[suit] + "</li>");
+};
+function addCard(rngVal){
+  if(rngVal <= 8){
+    return (rngVal + 2);
+  }else if(rngVal > 8 && rngVal <= 11){
+     return 10;
+  }else if(rngVal === 12){
+    return 11;
   };
 };
 
-function stayDeal(suit, values, dealCard, totalDeal){
-  var rngVal = Math.floor(Math.random() * 13);
-  var rngSuit = Math.floor(Math.random() * 4);
-  if (rngVal > 8 && rngVal < 12){
-    dealCard.push(10);
-  }else if (rngVal === 12){
-    dealCard.push(11);
-  }else if (rngVal <= 8){
-    dealCard.push(rngVal + 2);
-  };
-
-   while(totalDeal < 17){
-     var rngVal = Math.floor(Math.random() * 13);
-     var rngSuit = Math.floor(Math.random() * 4);
-     if (rngVal > 8 && rngVal < 12){
-       dealCard.push(10);
-     }else if (rngVal === 12){
-       dealCard.push(11);
-     }else if (rngVal <= 8){
-       dealCard.push(rngVal + 2);
-     };
-     $("ul." + suit[1]).prepend("<li>"+ values[rngVal] + " of " + suit[rngSuit] + "</li>");
-     totalDeal += dealCard[(dealCard.length - 1)];
-   };
-};
-
-function checkWin(win, totalUser, totalDeal){
-  console.log("checkwin" + totalUser);
-  console.log("checkwin" + totalDeal);
-  if(totalDeal >= 17){
-   if (totalUser >= 22){
+function checkWin(totalUser, totalDeal){
+  if (totalUser >= 22){
      alert("   User: " + totalUser + "    BUST - - - - Dealer Wins")
    };
    if (totalUser === totalDeal){
@@ -93,38 +54,56 @@ function checkWin(win, totalUser, totalDeal){
      alert("Dealer: " + totalDeal + "   /User: " + totalUser + "    USER WINS:  DEALER BUST");
    };
 };
-};
 
 $(function(){
-    var suit = ["Spades" , "Hearts", "Diamonds", "Clubs"];
-    var values = [2, 3, 4, 5, 6, 7 ,8 ,9, 10, "Jack", "Queen", "King", "Ace"];
-    //            0  1  2  3  4  5  6  7  8     9        10      11      12
-    var userCard = [];
-    var dealCard =[];
+    var suitName = ["Spades" , "Hearts", "Diamonds", "Clubs"];
+    var valueName = [2, 3, 4, 5, 6, 7 ,8 ,9, 10, "Jack", "Queen", "King", "Ace"];
+    //               0  1  2  3  4  5  6  7  8     9        10      11      12
     var totalUser = 0;
     var totalDeal = 0;
     var win = 0;
-      $("button#spades").click(function(){
-          deal(suit, values, userCard, dealCard);
-          console.log(userCard);
-          console.log(dealCard);
-          console.log(totalUser);
-          console.log(totalDeal);
-        });
-        $("button#hit").click(function(){
-          hitUser(suit, values, userCard, totalUser, dealCard, totalDeal);
-          console.log(userCard);
-          console.log(dealCard);
-          console.log(totalUser);
-          console.log(totalDeal);
-        });
-        $("button#stay").click(function(){
-          stayDeal(suit, values, dealCard, totalDeal);
-          checkWin(win, totalUser, totalDeal)
-          console.log(userCard);
-          console.log(dealCard);
-          console.log(totalUser);
-          console.log(totalDeal);
-        });
+    var arr = [];
+    var rngVal = 0;
+    var rngSuit = 0;
+    $("button#dealC").click(function(){
+      $("button#dealC").hide();
+      $("button#hit").show();
+      $("button#stay").show();
+        rngVal = randVal();
+        totalUser += addCard(rngVal);
+        rngSuit = randSuit();
+        arr.push("" + rngVal + "" + rngSuit);
+        dealUser(rngVal, rngSuit, suitName, valueName, arr);
+        rngVal = randVal();
+        totalUser += addCard(rngVal);
+        rngSuit = randSuit();
+        arr.push("" + rngVal + "" + rngSuit);
+        dealUser(rngVal, rngSuit, suitName, valueName, arr);
+        rngVal = randVal();
+        totalDeal += addCard(rngVal);
+        rngSuit = randSuit();
+        arr.push("" + rngVal + "" + rngSuit);
+        dealDeal(rngVal, rngSuit, suitName, valueName, arr);
+      });
+      $("button#hit").click(function(){
+        if(totalUser <= 21){
+        rngVal = randVal();
+        totalUser += addCard(rngVal);
+        rngSuit = randSuit();
+        arr.push("" + rngVal + "" + rngSuit);
+        dealUser(rngVal, rngSuit, suitName, valueName, arr);
+        };
+      });
+      $("button#stay").click(function(){
+        while(totalDeal <= 16){
+        rngVal = randVal();
+        totalDeal += addCard(rngVal);
+        rngSuit = randSuit();
+        arr.push("" + rngVal + "" + rngSuit);
+        dealDeal(rngVal, rngSuit, suitName, valueName, arr);
+      };
+      checkWin(totalUser, totalDeal);
+      });
+
 
 });

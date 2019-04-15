@@ -1,0 +1,14 @@
+.user li {
+  list-style-type: none;
+  display: inline;
+}
+.deal li {
+  list-style-type: none;
+  display: inline;
+}
+#hit {
+  display: none;
+}
+#stay{
+  display: none;
+}
