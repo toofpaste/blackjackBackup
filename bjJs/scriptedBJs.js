@@ -25,8 +25,8 @@ function addCard(rngVal){
   };
 };
 
-function checkWin(totalUser, totalDeal, playerBank, betTotal){
-  $("#reset").show();
+function checkWin(totalUser, totalDeal, betTotal){
+  $("#reset1").show();
   if (totalUser >= 22){
      $('#name').text("   User: " + totalUser + "    BUST - - - - Dealer Wins");
      $('#bet').text("Bet Amount: $" + betTotal + " Loss Amount: $" + (betTotal));
@@ -56,8 +56,8 @@ function checkWin(totalUser, totalDeal, playerBank, betTotal){
      $("#bank").text("Bank Balance: $" + playerBank);
    };
 };
-function start(playerBank){
-  $("#reset").hide();
+function start(){
+  $("#reset1").hide();
   var suitName = ["Spades" , "Hearts", "Diamonds", "Clubs"];
   var valueName = [2, 3, 4, 5, 6, 7 ,8 ,9, 10, "Jack", "Queen", "King", "Ace"];
   //               0  1  2  3  4  5  6  7  8     9        10      11      12
@@ -70,33 +70,51 @@ function start(playerBank){
 
   $("#plus1").unbind("click").click(function(){
     $("button#dealC").show();
+    if(playerBank > 0){
     var clickedNum = 1;
-    playerBank = bet(playerBank, clickedNum, betTotal);
+    playerBank = bet(clickedNum, betTotal);
+  };
   })
+
 
   $("#plus5").unbind("click").click(function(){
     $("button#dealC").show();
+    if(playerBank >= 5){
     var clickedNum = 5;
-    playerBank = bet(playerBank, clickedNum, betTotal);
+    playerBank = bet(clickedNum, betTotal);
+  };
   })
+
+
 
   $("#plus10").unbind("click").click(function(){
     $("button#dealC").show();
+    if(playerBank >= 10){
     var clickedNum = 10;
-    playerBank = bet(playerBank, clickedNum, betTotal);
+    playerBank = bet(clickedNum, betTotal);
+    };
   })
+
+
 
   $("#plus50").unbind("click").click(function(){
     $("button#dealC").show();
+    if(playerBank >= 50){
     var clickedNum = 50;
-    playerBank = bet(playerBank, clickedNum, betTotal);
+    playerBank = bet(clickedNum, betTotal);
+  };
   })
+
+
 
   $("#plus100").unbind("click").click(function(){
     $("button#dealC").show();
+    if(playerBank >= 100){
     var clickedNum = 100;
-    playerBank = bet(playerBank, clickedNum, betTotal);
+    playerBank = bet(clickedNum, betTotal);
+  };
   })
+
 
   $("button#dealC").unbind("click").click(function(){
     $("#plus1").hide();
@@ -126,7 +144,7 @@ function start(playerBank){
       totalUser += addCard(rngVal);
       rngSuit = randSuit();
       dealUser(rngVal, rngSuit, suitName, valueName);
-      };
+    }else $("ul.user").append("<li id = 'bustbust'> BUST BUST BUST BUST </li>");;
     });
     $("button#stay").unbind("click").click(function(){
       $("#stay").hide();
@@ -137,28 +155,27 @@ function start(playerBank){
       rngSuit = randSuit();
       dealDeal(rngVal, rngSuit, suitName, valueName);
     };
-    checkWin(totalUser, totalDeal, playerBank, betTotal);
+    checkWin(totalUser, totalDeal, betTotal);
+    console.log(playerBank);
     });
 };
 
-function bet(balance, clickedNum, betTotal){
-balance -= clickedNum;
+function bet(clickedNum, betTotal){
+playerBank -= clickedNum;
 betTotal.push(clickedNum);
 if(betTotal.length != 1){
 betTotal[0] += betTotal.pop();
 };
 $("#printBet").text("BET: $" + betTotal[0]);
-
-
-return balance;
-}
-function sum(total, num){
-  return total + num;
+return playerBank;
 };
-
-$(function(){
   var playerBank = 1000;
-      $("#reset").unbind("click").click(function(){
+$(function(){
+  var countClick = 0;
+
+      console.log("3:" + playerBank);
+      alert("reset");
+      $("#reset1").unbind("click").click(function(){
         $("#imgButtons").show();
         console.log("bank: " + playerBank);
         $("#plus1").show();
@@ -174,6 +191,6 @@ $(function(){
         $("#hit").hide();
         $("#stay").hide();
         $("#printBet").empty();
-        start(playerBank);
+        start();
       });
 });
