@@ -15,6 +15,9 @@
 #dealC{
   display: none;
 }
+#imgButtons button {
+  display: none;
+}
 #imgButtons{
   display: flex;
 }
